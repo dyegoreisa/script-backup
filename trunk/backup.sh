@@ -1,11 +1,11 @@
 #!/bin/bash
 
-SYSTEM="eelagoas"                   # Nome do sistema
-MyUSER="eelagoas"                   # USERNAME
-MyPASS="33l4g04s"                   # PASSWORD
-MyHOST="localhost"                  # Hostname
-MyDATA="eelagoas"                   # Database
-SYSDIR="/home/dyego/projetos/"      # Sistema
+SYSTEM="sistema"    # Nome do sistema
+MyUSER="usuario"    # Nome do usuário
+MyPASS="s3nh4"      # Senha
+MyHOST="localhost"  # Hostname
+MyDATA="banco"      # Bando de dados
+SYSDIR="/var/www/"  # Diretório do sistema
 
 ANOMES=`date +%Y%m`
 ANOMESDIA=`date +%Y%m%d`
