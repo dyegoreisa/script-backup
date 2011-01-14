@@ -51,7 +51,7 @@ $TAR$TMP/Desktop-$ANOMES.tar.gz Desktop
 echo "  Criando arquivo de backup da parta outros...";
 $TAR$TMP/outros-$ANOMES.tar.gz outros
 
-echo "  Movendo o arquivo do Thunderbird para o diretório de backup...";
+echo "  Movendo o arquivos para o diretório de backup...";
 mv -vf $TMP/* $DIRBK 
 
 echo "  Desmontando o compartilhamento...";
