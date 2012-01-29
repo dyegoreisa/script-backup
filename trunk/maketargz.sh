@@ -5,7 +5,7 @@ then
     exit 1
 fi;
 
-if ls $1 1> /dev/null 2> /dev/null; 
+if [ -d "$1" ]
 then
     DIR=$1
 else 

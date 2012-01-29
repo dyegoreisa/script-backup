@@ -6,11 +6,21 @@ MyPASS="s3nh4"      # Senha
 MyHOST="localhost"  # Hostname
 MyDATA="banco"      # Bando de dados
 SYSDIR="/var/www/"  # Diretório do sistema
+BKPDIR="/var/bk"    # Diretório de backup
 
 ANOMES=`date +%Y%m`
 ANOMESDIA=`date +%Y%m%d`
 
-if ls $ANOMES 1> /dev/null 2> /dev/null; 
+cd $BKPDIR;
+if [ -d "$SYSTEM" ]
+then
+    cd $SYSTEM;
+else
+    mkdir $SYSTEM;
+    cd $SYSTEM;
+fi;
+
+if [ -d $ANOMES ] 
 then 
     cd $ANOMES;
 else 
