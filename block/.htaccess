@@ -1,0 +1,3 @@
+Options +FollowSymlinks
+RewriteEngine on
+RewriteRule .*\.mp4$ /var/www/player/block/link.php?pathinfo=%{REQUEST_URI}
