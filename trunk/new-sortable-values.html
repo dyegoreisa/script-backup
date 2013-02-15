@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+	<meta charset="utf-8">
+	<title>Sortable Life Values</title>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css">
+	<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+	<script src="http://code.jquery.com/ui/1.9.2/jquery-ui.js"></script>
+	<script src="jquery.livequery.min.js"></script>
+	<link rel="stylesheet" href="/resources/demos/style.css">
+	<style>
+	#sortable { list-style-type: none; margin: 0; padding: 0; width: 10em; cursor: pointer; }
+	#sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.2em; font-size: 1.2em; height: 1.2em; }
+	#sortable li span { position: absolute; margin-left: -0.8em; margin-top: 0.1em; }
+    .janela { display: none; position: absolute; left: 30%; top: 15%; }
+	</style>
+	<script>
+    $(document).ready(function() {
+        $(function() {
+            $( "#sortable" ).sortable();
+            $( "#sortable" ).disableSelection();
+        });
+
+         $( "input[type=button]" ).button().click(function( event ) {
+            event.preventDefault();
+        });
+
+        $( "#criar" ).click(function() {
+            $( "#janelaNovo" ).show();
+            $( "#janelaCarregar" ).hide();
+            $( "#janelaSalvar" ).hide();
+        });
+
+        $( "#carregar" ).click(function() {
+            $( "#janelaCarregar" ).show();
+            $( "#janelaNovo" ).hide();
+            $( "#janelaSalvar" ).hide();
+        });
+
+        $( "#salvar" ).click(function() {
+            $( "#texto2" ).text( $( "ul" ).html() );
+
+            $( "#janelaSalvar" ).show();
+            $( "#janelaCarregar" ).hide();
+            $( "#janelaNovo" ).hide();
+        });
+
+        $( "#inserir" ).click(function() {
+            var palavra   = $( "#palavra" ).val();
+            var descricao = $( "#descricao" ).val();
+            var novoLi    = '<li class="ui-state-default remover" title="[' + descricao + ']"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>' + palavra + '</li>';
+
+            $( "#sortable" ).append( novoLi );
+
+            $( "#janelaNovo" ).hide();
+        });
+
+        $( "#fechar" ).click(function() {
+            $( "#janelaSalvar" ).hide();
+        });
+
+        $( "#ok" ).click(function() {
+            var lista = $( "#texto" ).val();
+
+            $( "#sortable" ).append( lista );
+
+            $( "#texto" ).val("");
+
+            $( "#janelaCarregar" ).hide();
+        });
+
+        $( ".remover" ).livequery('dblclick', function() {
+            $(this).remove();
+        });
+
+    });
+	</script>
+</head>
+<body style="cursor: auto;">
+
+<div id="janelaNovo" class="janela">
+    <label for="palavra">Palavra:</label>
+    <input type="text" name="palavra" id="palavra"/><br/>
+    <label for="descricao">Descri&ccedil;&atilde;o:</label>
+    <textarea name="descricao" id="descricao" cols="30" rows="5"></textarea><br/>
+    <input type="button" id="inserir" value="Inserir"/>
+</div>
+
+<div id="janelaCarregar" class="janela">
+    <label for="texto">Cole o conte&uacute;do previamente salvo para ser carregado</label><br/>
+    <textarea id="texto" name="texto" cols="55" rows="15"></textarea><br/>
+    <input type="button" id="ok" value="Ok"/>
+</div>
+
+<div id="janelaSalvar" class="janela">
+    <label for="texto">Copie o conteudo abaixo e salve em um arquivo</label><br/>
+    <textarea id="texto2" name="texto2" cols="55" rows="15"></textarea><br/>
+    <input type="button" id="fechar" value="Fechar"/>
+</div>
+
+<input type="button" id="criar" value="Criar">
+<input type="button" id="salvar" value="Salvar">
+<input type="button" id="carregar" value="Carregar">
+<br/><br/>
+<ul id="sortable" class="ui-sortable"></ul>
+
+</body>
+</html>
