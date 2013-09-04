@@ -35,8 +35,8 @@ vnoremap <C-i> :s/\(.\+\)\(:\)\(.*\)/\ \ \ \ \1\2\ \3/<CR>
 " Hightlight current line
 :set cursorline
 :set cursorcolumn
-:hi Cursorline   guibg=#000
-:hi Cursorcolumn guibg=#111
+:hi Cursorline   guibg=#000000
+:hi Cursorcolumn guibg=#111111
 
 " Hightlight search
 :set hls
