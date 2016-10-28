@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Meu Primeiro Programa</title>
+        <style type="text/css">
+            canvas {
+                border: 1px solid #000000;
+            }
+        </style>
+    </head>
+    <body onload="inicializar()">
+        <canvas id="canvas" width="600" height="480">
+            Navegador não suporta HTML5
+        </canvas>
+        <script type="text/javascript">
+            var barraAltura, barraLargura, jogadorPosicaoX, velocidadeJogador;
+            var bolaDiametro, bolaPosX, bolaPosY, velocidadeBola;
+            var pontosJogador, colisao, proximoBonus;
+            var bonusTamanho, bonusPosX, bonuxPosY, velocidadeBonus;
+            var refreshIntervalId;
+
+            function inicializar() {
+                velocidadeJogador = 20;
+                barraAltura = 15;
+                barraLargura = 90;
+
+                bolaDiametro = 10;
+                bolaPosX = canvas.width / 2;
+                bolaPosY = -10;
+                velocidadeBola = 10;
+                
+                bonusTamanho = 30;
+                bonusPosX = canvas.width / 2;
+                bonusPosY = -10;
+                velocidadeBonus = 15;
+                proximoBonus = 3;
+
+                pontosJogador = 0;
+                quantidadeBolas = 15;
+
+                colisao = false;
+
+                jogadorPosicaoX = (canvas.width - barraLargura) / 2;
+
+                canvas = document.getElementById("canvas");
+                context = canvas.getContext("2d");
+
+                document.addEventListener('keydown', keyDown);
+
+                context.fillRect(jogadorPosicaoX, canvas.height - barraAltura, barraLargura, barraAltura);
+                refreshIntervalId = setInterval(gameLoop, 30);
+            }
+
+            function keyDown(e) {
+                if (e.keyCode == 37) {
+                    if (jogadorPosicaoX > 0) {
+                        jogadorPosicaoX -= velocidadeJogador;
+                    }
+                }
+
+                if (e.keyCode == 39) {
+                    if (jogadorPosicaoX < (canvas.width - barraLargura)) {
+                        jogadorPosicaoX += velocidadeJogador;
+                    }
+                }
+            }
+
+            function gameLoop() {
+                context.clearRect(0, 0, canvas.width, canvas.height);
+
+                context.fillRect(jogadorPosicaoX, canvas.height - barraAltura, barraLargura, barraAltura);
+
+
+                if (proximoBonus <= 0) {
+                    if (bonusPosY <= canvas.height) {
+                        bonusPosY += velocidadeBonus;
+                    } else {
+                        if(quantidadeBolas > 0) {
+                            bonusPosX = Math.random() * 600;
+                            bonusPosY = -10;
+                            colisao = false;
+                            bonus = false;
+                            proximoBonus = 3;
+                        }
+                    }
+                } else {
+                    if (bolaPosY <= canvas.height) {
+                        bolaPosY += velocidadeBola;
+                    } else {
+                        if(quantidadeBolas > 0) {
+                            bolaPosX = Math.random() * 600;
+                            bolaPosY = -10;
+                            colisao = false;
+                            quantidadeBolas--;
+                            proximoBonus--;
+                        }
+                    }
+                }
+
+                if((bolaPosX > jogadorPosicaoX && bolaPosX < jogadorPosicaoX + barraLargura) && bolaPosY >= canvas.height - barraAltura && colisao == false) {
+                    pontosJogador++;
+                    colisao = true;
+                }
+
+                if((bonusPosX > jogadorPosicaoX && bonusPosX < jogadorPosicaoX + barraLargura) && bonusPosY >= canvas.height - barraAltura && colisao == false) {
+                    pontosJogador = pontosJogador + 3;
+                    velocidadeJogador = velocidadeJogador + 5;
+                    barraLargura = barraLargura + 30;
+                    colisao = true;
+                }
+
+                context.font = "32pt Tahoma";
+                context.fillText("Bolas: " + quantidadeBolas, 10, 50);
+                context.fillText("Pontos: " + pontosJogador, canvas.width - 200, 50);
+                context.beginPath();
+
+                if (proximoBonus <= 0) {
+                    context.fillRect(bonusPosX, bonusPosY, bonusTamanho, bonusTamanho);
+                } else {
+                    context.arc(bolaPosX, bolaPosY, bolaDiametro, 0, Math.PI * 2, true);
+                }
+
+                context.fill();
+                
+                if(quantidadeBolas <= 0) {
+                    clearInterval(refreshIntervalId);
+                }
+            }
+    </script>
+  </body>
+</html>
